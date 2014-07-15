@@ -1,0 +1,12 @@
+{
+  "name": "footballbot",
+  "version": "1.0.0",
+  "description": "Soccer bot",
+  "main": "index.js",
+  "author": "Alex Potsides <alex@achingbrain.net>",
+  "repository": "git@github.com:achingbrain/footballbot.git",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^1.0"
+  }
+}
