@@ -1,7 +1,8 @@
 var util = require('util'),
   EventEmitter = require('events').EventEmitter,
   Repl = require("./repl.js"),
-  SerialPort = require("serialport").SerialPort
+  SerialPort = require("serialport").SerialPort,
+  protocol = require('./protocol')
 
 var FootballBot = function(port) {
   EventEmitter.call(this)
@@ -15,6 +16,9 @@ var FootballBot = function(port) {
       'board': this
     })
 
+    this.LOW = 0
+    this.HIGH = 1
+
     this.emit('ready')
   }.bind(this))
 }
@@ -24,6 +28,10 @@ FootballBot.prototype.attach = function(motor) {
   motor._serialPort = this._serialPort
 
   return motor
+}
+
+FootballBot.prototype.digitalWrite = function(pin, value, callback) {
+  this._serialPort.write([protocol.DIGITAL_WRITE, pin, value], callback)
 }
 
 module.exports = FootballBot

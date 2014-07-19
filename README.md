@@ -7,6 +7,7 @@ You should install the following sketch on the Dagu mini driver board:
 ```
 const byte MOTOR_SPEED = 0xF0;
 const byte MOTOR_DIRECTION = 0xF1;
+const byte DIGITAL_WRITE = 0xF2;
 
 void setup()
 {
@@ -30,7 +31,7 @@ void loop()
 
     if(command == MOTOR_SPEED) {
       analogWrite(pin, value);
-    } else if(command == MOTOR_DIRECTION) {
+    } else if(command == MOTOR_DIRECTION || command == DIGITAL_WRITE) {
       digitalWrite(pin, value);
     }
   }
@@ -62,6 +63,33 @@ footballBot.on('ready', function() {
     left: left,
     right: right
   })
+
+  // pull pin 13 high
+  this.digitalWrite(13, this.HIGH)
+
+  // turn both motors on
+  left.start()
+  right.start()
+
+  setTimeout(function() {
+    // turn left
+    left.speed(255)
+    right.speed(0)
+  }, 1000)
+
+  setTimeout(function() {
+    // full reverse!
+    left.reverse()
+    left.speed(255)
+    right.reverse()
+    right.speed(255)
+  }, 2000)
+
+  setTimeout(function() {
+    // stop
+    left.stop()
+    right.stop()
+  }, 3000)
 })
 
 ```
