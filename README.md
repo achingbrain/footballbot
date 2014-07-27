@@ -91,7 +91,17 @@ footballBot.on('ready', function() {
     right.stop()
   }, 3000)
 })
+```
 
+## Constructor options
+
+The board constructor supports an options argument.  The default values for this are:
+
+```
+var footballBot = new FootballBot('/dev/tty.linvor-DevB', {
+  // create a repl and expose it as footballBot.repl
+  repl: true
+})
 ```
 
 The `FootballBot.Motor` class supports a similar API to the Johnny-Five equivalent.

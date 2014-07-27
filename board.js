@@ -4,17 +4,23 @@ var util = require('util'),
   SerialPort = require("serialport").SerialPort,
   protocol = require('./protocol')
 
-var FootballBot = function(port) {
+var FootballBot = function(port, options) {
   EventEmitter.call(this)
+
+  options = options || {
+    repl: true
+  }
 
   this._serialPort = new SerialPort(port, {
     baudrate: 9600
   })
   this._serialPort.on('open', function() {
 
-    this.repl = new Repl({
-      'board': this
-    })
+    if(options.repl) {
+      this.repl = new Repl({
+        'board': this
+      })
+    }
 
     this.LOW = 0
     this.HIGH = 1
